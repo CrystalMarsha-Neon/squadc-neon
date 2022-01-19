@@ -47,10 +47,9 @@ class CustomerData_by_Idno(BaseModel):
 class ResponseCIF(BaseModel):
     cif_list: List[CIF]
 
-<<<<<<< HEAD
 class ResponseIDNO(BaseModel):
     idno_list: List[CustomerData_by_Idno]
-=======
+
 class Customer(BaseModel):
     idno : str = None
     fname : str = None
@@ -66,4 +65,3 @@ class Customer(BaseModel):
 
 class ResponseCustomer(BaseModel):
     customer : List[Customer]
->>>>>>> 1913fc6499d5d5d349fe5f733b4e45524b0d6357

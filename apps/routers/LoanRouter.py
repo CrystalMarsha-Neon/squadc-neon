@@ -29,3 +29,9 @@ async def apihenson(response: Response, input_data=Body(..., example=example_inp
     result = loan.get_customer(input_data=input_data)
     response.status_code = result.status
     return result
+
+@router.post("/rifki")
+async def rifki(response: Response, input_data=Body(..., example=example_input_idno)):
+    result = loan.rifki(input_data=input_data)
+    response.status_code = result.status
+    return result
