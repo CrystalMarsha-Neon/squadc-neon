@@ -24,8 +24,16 @@ async def get_loan_by_cif_debug(response: Response, input_data=Body(..., example
     response.status_code = result.status
     return result
 
+<<<<<<< HEAD
 @router.post("/rifki")
 async def rifki(response: Response, input_data=Body(..., example=example_input_idno)):
     result = loan.rifki(input_data=input_data)
     response.status_code = result.status
     return result
+=======
+@router.post("/apihenson")
+async def apihenson(response: Response, input_data=Body(..., example=example_input_idno)):
+    result = loan.get_customer(input_data=input_data)
+    response.status_code = result.status
+    return result
+>>>>>>> 1913fc6499d5d5d349fe5f733b4e45524b0d6357
