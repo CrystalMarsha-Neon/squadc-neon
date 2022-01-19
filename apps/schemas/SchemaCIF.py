@@ -5,6 +5,7 @@ from typing import Optional, List
 
 class RequestCIF(BaseModel):
     cif: str = None
+    idno: str = None
 
 class CIF(BaseModel):
     loanid: str = None
@@ -29,5 +30,22 @@ class CIF(BaseModel):
     updatedate: date = None
     source: str = None
 
+class CustomerData_by_Idno(BaseModel):
+    idno: str = None,
+    fname: str = None,
+    lname: str = None,
+    # dob: str = None,
+    gender: str = None,
+    marital_status: str = None,
+    income: int = None,
+    loan_status: int = None,
+    loan_amount: int = None,
+    phone: str = None,
+    email: str = None,
+    source: str = None,
+
 class ResponseCIF(BaseModel):
     cif_list: List[CIF]
+
+class ResponseIDNO(BaseModel):
+    idno_list: List[CustomerData_by_Idno]
