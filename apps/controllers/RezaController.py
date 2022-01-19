@@ -13,7 +13,7 @@ class ControllerReza(object):
         result = BaseResponse()
         result.status = 400
         
-        data = db.table('lendings').sum('loan_amount')
+        data = db.table('digital_lending_dataset').sum('loan_amount')
         
         if gender:
             loan = Loan.where('gender', '=', gender.title()) 
@@ -25,7 +25,7 @@ class ControllerReza(object):
         
         result.status = 200
         result.message = "Success"
-        result.data = { "count_lount": data }
+        result.data = { "total_loan": data }
         Log.info(result.message)
 
         return result
