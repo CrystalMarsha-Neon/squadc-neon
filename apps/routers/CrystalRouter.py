@@ -4,6 +4,7 @@ from sqlite3 import Date
 from fastapi import APIRouter, Query, Response
 from apps.controllers.LoanController import ControllerLoan as loan
 from typing import Optional
+import datetime
 
 router = APIRouter()
 @router.post("/get_loan_by_loan_id")
@@ -27,7 +28,7 @@ async def hello():
 @router.put("/update_cif")
 async def update_cif(response: Response,
         cif: Optional[str]=Query(None)):
-    result = loan.update_cif(cif=cif)
+    result = loan.update_cif(cif=cif,updated_at=datetime.datetime.now)
     response.status_code = result.status
     return result
     

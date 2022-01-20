@@ -15,6 +15,3 @@ async def home():
 async def ping():
     return APPS_INFORMATION["version"]
 
-@router.get("/crystal")
-async def hello():
-    return "hello world"
