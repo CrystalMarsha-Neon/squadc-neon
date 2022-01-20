@@ -110,18 +110,18 @@ class ControllerLoan(object):
         return result
 
     @classmethod
-    def get_loan_by_name(cls,fname,lname,dob):
+    def get_loan_by_loan_id(cls,loanid,dob):
         result = BaseResponse()
         result.status = 400
         try:
-            if fname is not None and lname is not None or dob is not None:
-                    data = Loan.where(('fname', '=', fname)).get().serialize()
+            if loanid is not None and dob is not None:
+                    data = Loan.where('loanid', '=', loanid).where('dob','=',dob).get().serialize()
                     result.status = 200
                     result.message = "Success"
-                    result.data = { "CIF": data}
+                    result.data = {"CIF": data}
                     Log.info(result.message)
             else:
-                    e = "idno not found!"
+                    e = "data is empty"
                     Log.error(e)
                     result.status = 404
                     result.message = str(e)
@@ -130,3 +130,39 @@ class ControllerLoan(object):
                 result.status = 400
                 result.message = str(e)
         return result
+    
+    # @classmethod
+    # def delete_cif(cls,loanid):
+    #     result = BaseResponse()
+    #     result.status = 400
+    #     try:
+    #         if loanid is not None:
+    #                 data = Loan.where('loanid', '=', loanid).update({'deleted':1})
+    #                 result.status = 200
+    #                 result.message = "Success"
+    #                 result.data = {"CIF": data}
+    #                 Log.info(result.message)
+    #         else:
+    #                 e = "idno not found!"
+    #                 Log.error(e)
+    #                 result.status = 404
+    #                 result.message = str(e)
+    #     except Exception as e:
+    #             Log.error(e)
+    #             result.status = 400
+    #             result.message = str(e)
+    #     return result
+    @classmethod
+    def update_cif(cls,cif):
+        result = BaseResponse()
+        result.status = 400
+        if cif is not None:
+                data = Loan.where('cif', '=', cif).update({'deleted':2})
+                result.status = 200
+                result.message = "Success"
+                result.data = {"CIF": data}
+                Log.info(result.message)
+        return result
+            
+
+                 

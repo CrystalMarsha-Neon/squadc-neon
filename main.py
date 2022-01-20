@@ -48,10 +48,11 @@ async def custom_swagger_ui_html():
         swagger_css_url=f"/static/swagger-ui.css",
     )
 
-app.include_router(
-    InformationRouter.router,
-    tags=["Information"],
-)
+# @app.delete("/docs/{source}",status_code = 204)
+# app.include_router(
+#     InformationRouter.router,
+#     tags=["Information"],
+# )
 
 app.include_router(
     LoanRouter.router,
