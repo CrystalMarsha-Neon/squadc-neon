@@ -63,8 +63,8 @@ class RequestHenson(BaseModel):
 class RequestCIF(BaseModel):
     cif: str = None
     idno: str = None
-    loanid: str = None
-    income: str = None
+    loan_type: str = None
+    loanid: int = None
 
 class CIF(BaseModel):
     loanid: str = None
@@ -95,9 +95,13 @@ class CustomerData_by_Idno(BaseModel):
     lname: str = None
     gender: str = None
     marital_status: str = None
-    income: int = None
+    cif: str  = None
+    loanid: str = None
+    loan_type: int = None
     loan_status: int = None
     loan_amount: int = None
+    loan_tenure: int = None
+    interest: int = None
     phone: str = None
     email: str = None
     source: str = None
