@@ -2,10 +2,20 @@ from datetime import date
 from pydantic import BaseModel
 from typing import Optional, List
 
+class RequestHenson(BaseModel):
+    cif: str = None
+    idno: str = None
+    loanid: str = None
+    income: str = None
+    marital_status: str = None    
+    phone: str = None
+    email: str = None
 
 class RequestCIF(BaseModel):
     cif: str = None
     idno: str = None
+    loanid: str = None
+    income: str = None
 
 class CIF(BaseModel):
     loanid: str = None
