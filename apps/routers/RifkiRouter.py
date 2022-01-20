@@ -32,5 +32,5 @@ async def get_loan_type_activate(response: Response,
 async def update_loan_type_by_loanid(response: Response, input_data=Body(..., example=example_input_uploantype)):
     result = Rifki.update_loan_type_by_loanid(input_data=input_data)
     response.status_code = result.status
-    return result    
-    # pass
+    # return result    
+    pass

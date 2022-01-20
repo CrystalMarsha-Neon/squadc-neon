@@ -72,18 +72,16 @@ class ControllerRifki(object):
             if input_data.loanid is not None:
                 dbtemp = datadb.table('digital_lending_dataset').where('loanid', input_data.loanid).where('deleted', '=', 0)\
                     .update({"loan_type": input_data.loan_type,"updatedate":datetime.datetime.now()})            
-                if dbtemp != 0:
-                    result.status = 200
-                    result.message = "Success"
-                    result.data = "input_loanid: " + input_data.loanid + " change loan_type: " + input_data.loan_type                
-                else:
-                    result.status = 200
-                    result.message = "No such entry"   
+                result.status = 200
+                result.message = "Success"
+                result.data = "input_loanid: " + input_data.loanid + " change loan_type: " + input_data.loan_type                
+            
             else:
                 e = "loanid not found! Please check the again!"
                 Log.error(e)
                 result.message = str(e)
                 result.status = 404
+
         except Exception as e:
             Log.error(e)
             result.message = str(e)
