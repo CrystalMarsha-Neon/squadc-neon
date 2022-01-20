@@ -9,7 +9,7 @@ example_input_idno = json.dumps({
     "idno": "681286",
 }, indent=2)
 
-example_input_loanid = json.dumps({
+example_input_delete = json.dumps({
     "loanid": "10003",
 }, indent=2)
 
@@ -36,12 +36,10 @@ async def get_loan_type_activate(response: Response,
 async def update_loan_type_by_loanid(response: Response, input_data=Body(..., example=example_input_uploantype)):
     result = Rifki.update_loan_type_by_loanid(input_data=input_data)
     response.status_code = result.status
-    # return result    
-    pass
+    return result    
 
-@router.delete("/delete_rows/{input_loanid}")
-async def delete_rows(response: Response):
+@router.delete("/delete_rows")
+async def delete_rows(response: Response, input_data=Body(..., example=example_input_delete)):
     result = Rifki.delete_rows(input_data=input_data)
     response.status_code = result.status
-    # return result
-    pass
+    return result
