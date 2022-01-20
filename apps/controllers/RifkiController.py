@@ -70,14 +70,13 @@ class ControllerRifki(object):
 
         try:
             if input_data.loanid is not None:
-                dbtemp = datadb.table('digital_lending_dataset').where('loanid', input_data.loanid).where('deleted', '=', 0)\
-                    .update({"loan_type": input_data.loan_type,"updatedate":datetime.datetime.now()})            
+                dbtemp = datadb.table('digital_lending_dataset').where('loanid', input_data.loanid).where('deleted', '=', 0).update({"loan_type": input_data.loan_type,"updatedate":datetime.datetime.now()})            
                 result.status = 200
                 result.message = "Success"
                 result.data = "input_loanid: " + input_data.loanid + " change loan_type: " + input_data.loan_type                
             
             else:
-                e = "loanid not found! Please check the again!"
+                e = "loanid not found! Please check again!"
                 Log.error(e)
                 result.message = str(e)
                 result.status = 404
@@ -87,4 +86,35 @@ class ControllerRifki(object):
             result.message = str(e)
             result.status = 404
 
+        return result
+    
+    @classmethod
+    def delete_rows(cls, input_data=None):
+        input_data = RequestCIF(**input_data)
+        result = BaseResponse()
+        result.status = 400
+        data_loanid = input_data.loanid
+
+        try:            
+            if input_data.loanid is not None:
+                if datadb.table('digital_lending_dataset').where('loanid', data_loanid).where('deleted', '=', 0).update({'deleted': 1}):
+                    result.status = 200
+                    result.message = "Success"
+                    result.data = "entry loanid: " + input_data.loanid + " has been deleted"   
+            
+                elif datadb.table('digital_lending_dataset').where('loanid', data_loanid).where('deleted', '=', 1):
+                    result.status = 200
+                    result.message = "entry_rows_telah_dihapus"  
+            
+            else:
+                e = "loanid not found! Please check again!"
+                Log.error(e)
+                result.message = str(e)
+                result.status = 404
+        
+        except Exception as e:
+            Log.error(e)
+            result.message = str(e)
+            result.status = 404
+        
         return result
