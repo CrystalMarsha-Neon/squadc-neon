@@ -48,10 +48,6 @@ async def custom_swagger_ui_html():
         swagger_css_url=f"/static/swagger-ui.css",
     )
 
-# @app.get("/crystal", include_in_schema=False)
-# async def hello():
-#     return "hello world"
-
 app.include_router(
     InformationRouter.router,
     tags=["Information"],
@@ -65,28 +61,28 @@ app.include_router(
 
 app.include_router(
     RezaRouter.router,
-    tags=["Loan"],
+    tags=["Reza"],
     prefix='/reza',
     dependencies=[Depends(verify_token)]
 )
 
 app.include_router(
     HensonRouter.router,
-    tags=["Loan"],
+    tags=["Henson"],
     prefix='/henson',
     dependencies=[Depends(verify_token)]
 )
 
 app.include_router(
     RifkiRouter.router,
-    tags=["Loan"],
+    tags=["Rifki"],
     prefix='/rifki',
     dependencies=[Depends(verify_token)]
 )
 
 app.include_router(
     CrystalRouter.router,
-    tags=["Loan"],
+    tags=["Crystal"],
     prefix='/crystal',
     dependencies=[Depends(verify_token)]
 )

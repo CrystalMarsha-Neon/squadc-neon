@@ -4,7 +4,7 @@ from apps.schemas.SchemaCIF import RequestCIF, ResponseCIF, ResponseCustomer, Re
 from apps.helper.ConfigHelper import encoder_app
 from main import PARAMS
 from apps.models.LoanModel import Loan
-
+# from apps.models.BorrowerModel import Borrower
 SALT = PARAMS.SALT.salt
 
 
