@@ -32,3 +32,30 @@ class ControllerRifki(object):
             result.message = str(e)
 
         return result
+
+    @classmethod
+    def get_loan_type_activate(cls, input_data):
+        input_data = input_data
+        result = BaseResponse()
+        result.status = 400
+        typestat = int(input_data)    
+
+        try:
+            if typestat > 0 and typestat < 4:
+                data = Loan.where('loan_status', '=', input_data).count()
+                result.status = 200
+                result.message = "Success"
+                result.data = {"count_loan_active": data}
+                Log.info(result.message)
+            else:
+                e = "loan_type not found! Please check the example input!"
+                Log.error(e)
+                result.status = 404
+                result.message = str(e)
+                
+        except Exception as e:
+            Log.error(e)
+            result.status = 404
+            result.message = str(e)
+
+        return result

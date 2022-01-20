@@ -6,6 +6,7 @@ from typing import Optional, List
 class RequestCIF(BaseModel):
     cif: str = None
     idno: str = None
+    loan_type: str = None
 
 class CIF(BaseModel):
     loanid: str = None
