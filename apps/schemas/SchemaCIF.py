@@ -2,6 +2,7 @@ from typing import  List
 from datetime import date
 from pydantic import BaseModel
 
+
 class RezaRequestCIF(BaseModel):
     loan_type: int = None
     loan_status: int = None
@@ -50,9 +51,20 @@ class RezaCIF(BaseModel):
 class RezaResponseCIF(BaseModel):
     cif_list: List[RezaCIF]
 
+class RequestHenson(BaseModel):
+    cif: str = None
+    idno: str = None
+    loanid: str = None
+    income: str = None
+    marital_status: str = None    
+    phone: str = None
+    email: str = None
+      
 class RequestCIF(BaseModel):
     cif: str = None
     idno: str = None
+    loanid: str = None
+    income: str = None
 
 class CIF(BaseModel):
     loanid: str = None
@@ -101,7 +113,7 @@ class Customer(BaseModel):
     fname : str = None
     lname : str = None
     dob : date = None
-    age : int = None
+    # age : int = None  #database ga ada column age
     gender : str = None
     marital_status : str = None
     income : int = None
