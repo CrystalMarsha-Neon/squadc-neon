@@ -1,6 +1,6 @@
 from apps.helper import Log
 from apps.schemas import BaseResponse
-from apps.schemas.SchemaCIF import RequestCIF, ResponseCIF, ResponseCustomer, ResponseIDNO
+from apps.schemas.SchemaCIF import RequestCIF, ResponseCIF, ResponseCustomer, ResponseIDNO,Response_name,Request_data
 from apps.helper.ConfigHelper import encoder_app
 from main import PARAMS
 from apps.models.LoanModel import Loan
@@ -85,7 +85,7 @@ class ControllerLoan(object):
         return result
 
     @classmethod
-    def rifki(cls, input_data=None):
+    def get_loan_by_idno(cls, input_data=None):
         input_data = RequestCIF(**input_data)
         result = BaseResponse()
         result.status = 400
@@ -107,4 +107,26 @@ class ControllerLoan(object):
             result.status = 400
             result.message = str(e)
 
+        return result
+
+    @classmethod
+    def get_loan_by_name(cls,fname,lname,dob):
+        result = BaseResponse()
+        result.status = 400
+        try:
+            if fname is not None and lname is not None or dob is not None:
+                    data = Loan.where(('fname', '=', fname)).get().serialize()
+                    result.status = 200
+                    result.message = "Success"
+                    result.data = { "CIF": data}
+                    Log.info(result.message)
+            else:
+                    e = "idno not found!"
+                    Log.error(e)
+                    result.status = 404
+                    result.message = str(e)
+        except Exception as e:
+                Log.error(e)
+                result.status = 400
+                result.message = str(e)
         return result
