@@ -52,3 +52,9 @@ async def delete_loan(response: Response, loanid: int):
     result = reza.delete_loan(loanid=loanid)
     response.status_code = result.status
     return result    
+
+@router.get("/get_loan_by_borrowercif/{cif}")
+async def get_loan_by_borrowercif(response: Response, cif: int):
+    result = reza.get_loan_by_borrowercif(cif=cif)
+    response.status_code = result.status
+    return result    
