@@ -7,6 +7,7 @@ class RequestCIF(BaseModel):
     cif: str = None
     idno: str = None
     loan_type: str = None
+    loanid: int = None
 
 class CIF(BaseModel):
     loanid: str = None

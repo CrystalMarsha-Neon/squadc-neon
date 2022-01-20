@@ -1,5 +1,7 @@
+import datetime
 from apps.helper import Log
 from apps.schemas import BaseResponse
+from apps.models import db as datadb
 from apps.schemas.SchemaCIF import RequestCIF, ResponseIDNO
 from apps.helper.ConfigHelper import encoder_app
 from main import PARAMS
@@ -57,5 +59,34 @@ class ControllerRifki(object):
             Log.error(e)
             result.status = 404
             result.message = str(e)
+
+        return result
+
+    @classmethod
+    def update_loan_type_by_loanid(cls, input_data=None):
+        result = BaseResponse()
+        result.status = 400
+        input_data = RequestCIF(**input_data)
+
+        try:
+            if input_data.loanid is not None:
+                dbtemp = datadb.table('digital_lending_dataset').where('loanid', input_data.loanid).where('deleted', '=', 0)\
+                    .update({"loan_type": input_data.loan_type,"updatedate":datetime.datetime.now()})            
+                if dbtemp != 0:
+                    result.status = 200
+                    result.message = "Success"
+                    result.data = "input_loanid: " + input_data.loanid + " change loan_type: " + input_data.loan_type                
+                else:
+                    result.status = 200
+                    result.message = "No such entry"   
+            else:
+                e = "loanid not found! Please check the again!"
+                Log.error(e)
+                result.message = str(e)
+                result.status = 404
+        except Exception as e:
+            Log.error(e)
+            result.message = str(e)
+            result.status = 404
 
         return result
