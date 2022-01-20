@@ -54,7 +54,7 @@ class Customer(BaseModel):
     fname : str = None
     lname : str = None
     dob : date = None
-    # age : int = None
+    # age : int = None  #database ga ada column age
     gender : str = None
     marital_status : str = None
     income : int = None
