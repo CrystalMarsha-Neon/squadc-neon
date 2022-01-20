@@ -23,6 +23,7 @@ allowed_hosts:
   - "127.0.0.1"
   - "192.168.14.44"
   - "ocbcnisp.com"
+  - "192.168.109.153"
 
 allow_methods:
   - "GET"
@@ -35,8 +36,8 @@ database:
     host: "localhost"
     port: 5432
     username: "postgres"
-    password: "admin"
-    db: "your_database"
+    password: "postgres"
+    db: "postgres"
     schema: "public"
   staging:
     host: "localhost"
