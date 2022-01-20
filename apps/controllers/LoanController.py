@@ -5,6 +5,8 @@ from apps.helper.ConfigHelper import encoder_app
 from main import PARAMS
 from apps.models.LoanModel import Loan
 from datetime import *
+from apps.models import db as conn
+import datetime
 # from apps.models.BorrowerModel import Borrower
 SALT = PARAMS.SALT.salt
 
@@ -158,10 +160,10 @@ class ControllerLoan(object):
         result = BaseResponse()
         result.status = 400
         if cif is not None:
-                data = Loan.where('cif', '=', cif).update({'deleted':2})
+                data = conn.table('digital_lending_dataset').where('cif', '=', cif).update({'deleted':2,"updatedate":datetime.datetime.now()})
                 result.status = 200
                 result.message = "Success"
-                result.data = {"CIF": data}
+                result.data = {"Success": data}
                 Log.info(result.message)
         return result
             
