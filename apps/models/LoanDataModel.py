@@ -1,12 +1,11 @@
-# from ssl import HAS_NEVER_CHECK_COMMON_NAME
-# from apps.models import Model
-# from apps.models.BorrowerModel import Borrower
-# from orator.orm import has_one
+from apps.models import Model
+from orator.orm import belongs_to
+#from apps.models.BorrowerDataModel import Borrower
 
-# class Loan(Model):
-#     __table__ = 'loan'
-#     __primary_key__ = 'loanid'
+class Loan(Model):
+    __table__ = 'loan'
+    __primary_key__ = 'loanid'
 
-#     @has_one 
-#     def borrower(self):
-#         return Borrower
+    # @belongs_to(foreign_key='cif')
+    # def borrower(self):
+    #     return Borrower

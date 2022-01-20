@@ -6,6 +6,7 @@ from apps.schemas import BaseResponse
 from apps.models.LoanModel import Loan
 from apps.schemas.SchemaCIF import ResponseCIF
 from apps.utils.randomizer import random_N_digit
+from apps.models.BorrowerDataModel import Borrower
 
 SALT = PARAMS.SALT.salt
 
@@ -119,3 +120,21 @@ class ControllerReza(object):
 
         return result    
     
+    @classmethod
+    def get_loan_by_borrowercif(cls, cif: int):
+        result = BaseResponse()
+        result.status = 400
+
+        if cif is not None:
+            data =  Borrower.find(cif).loans.serialize()
+            result.status = 200
+            result.message = "Success"
+            result.data = data
+
+        else:
+            e = "cif not found!"
+            Log.error(e)
+            result.status = 404
+            result.message = str(e)
+
+        return result
