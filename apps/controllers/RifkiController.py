@@ -36,7 +36,7 @@ class ControllerRifki(object):
         return result
 
     @classmethod
-    def get_loan_type_activate(cls, input_data):
+    def get_loan_type_active(cls, input_data):
         input_data = input_data
         result = BaseResponse()
         result.status = 400
@@ -81,7 +81,7 @@ class ControllerRifki(object):
                 result.message = str(e)
                 result.status = 404
 
-        except Exception as e:
+        except BaseException as e:
             Log.error(e)
             result.message = str(e)
             result.status = 404
@@ -97,22 +97,28 @@ class ControllerRifki(object):
 
         try:            
             if input_data.loanid is not None:
-                if datadb.table('digital_lending_dataset').where('loanid', data_loanid).where('deleted', '=', 0).update({'deleted': 1}):
-                    result.status = 200
-                    result.message = "Success"
-                    result.data = "entry loanid: " + input_data.loanid + " has been deleted"   
-            
-                elif datadb.table('digital_lending_dataset').where('loanid', data_loanid).where('deleted', '=', 1):
-                    result.status = 200
-                    result.message = "entry_rows_telah_dihapus"  
-            
+                if datadb.table('digital_lending_dataset').where('loanid', data_loanid).where('deleted', '=', 0):
+                        datadb.table('digital_lending_dataset').where('loanid', data_loanid).update({'deleted': 1})
+                        result.status = 200
+                        result.message = "Success"
+                        result.data = "entry loanid: " + input_data.loanid + " has been deleted"   
             else:
                 e = "loanid not found! Please check again!"
                 Log.error(e)
                 result.message = str(e)
                 result.status = 404
         
-        except Exception as e:
+        except AttributeError as e:
+            Log.error(e)
+            result.message = str(e)
+            result.status = 404
+        
+        except ArithmeticError as e:
+            Log.error(e)
+            result.message = str(e)
+            result.status = 404
+        
+        except ValueError as e:
             Log.error(e)
             result.message = str(e)
             result.status = 404

@@ -25,10 +25,10 @@ async def get_loan_by_idno(response: Response, input_data=Body(..., example=exam
     response.status_code = result.status
     return result
 
-@router.get("/get_loan_type_activate")
-async def get_loan_type_activate(response: Response, 
+@router.get("/get_loan_type_active")
+async def get_loan_type_active(response: Response, 
             loan_type: Optional[str]=Query(None, example="1/2/3")):
-    result = Rifki.get_loan_type_activate(loan_type)
+    result = Rifki.get_loan_type_active(loan_type)
     response.status_code = result.status
     return result
 
