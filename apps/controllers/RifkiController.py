@@ -108,7 +108,17 @@ class ControllerRifki(object):
                 result.message = str(e)
                 result.status = 404
         
-        except Exception as e:
+        except AttributeError as e:
+            Log.error(e)
+            result.message = str(e)
+            result.status = 404
+        
+        except ArithmeticError as e:
+            Log.error(e)
+            result.message = str(e)
+            result.status = 404
+        
+        except ValueError as e:
             Log.error(e)
             result.message = str(e)
             result.status = 404
