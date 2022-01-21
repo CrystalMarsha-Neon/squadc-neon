@@ -3,6 +3,8 @@ import json
 from sqlite3 import Date
 from fastapi import APIRouter, Query, Response
 from apps.controllers.LoanController import ControllerLoan as loan
+from apps.controllers.CrystalController import ControllerCrystal as crystalm
+
 from typing import Optional
 import datetime
 
@@ -11,7 +13,7 @@ router = APIRouter()
 async def get_loan_by_loan_id(response: Response,
         loanid: Optional[str]=Query(None),
         dob: Optional[date]=Query(None)):
-    result = loan.get_loan_by_loan_id(loanid=loanid,dob=dob)
+    result = crystalm.get_loan_by_loan_id(loanid=loanid,dob=dob)
     response.status_code = result.status
     return result
 
@@ -21,14 +23,22 @@ async def get_loan_by_loan_id(response: Response,
 #     result.status_code = result.status
 #     return restult
 
-@router.get("/hello_world")
-async def hello():
-    return "hello world"
+@router.get("/get_biggest_loan")
+async def get_biggest_loan(response: Response):
+    result = crystalm.get_biggest_loan()
+    response.status_code = result.status
+    return result
 
 @router.put("/update_cif")
 async def update_cif(response: Response,
         cif: Optional[str]=Query(None)):
-    result = loan.update_cif(cif=cif,updated_at=datetime.datetime.now)
+    result = crystalm.update_cif(cif=cif,updated_at=datetime.datetime.now)
     response.status_code = result.status
     return result
-    
+
+@router.delete("/delete_cif")
+async def delete_cif(response: Response,
+        cif: Optional[str]=Query(None)):
+    result = crystalm.delete_cif(cif=cif,updated_at=datetime.datetime.now)
+    response.status_code = result.status
+    return result
